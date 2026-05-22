@@ -43,7 +43,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 /* LAYER KEY BAR */
 .layer-bar {
   display:flex; flex-wrap:wrap; gap:8px 20px; justify-content:center;
-  padding:16px 40px 8px; border-top:1px solid #141414; margin-top:18px;
+  padding:16px 40px 8px; border-top:1px solid #141414; margin-top:0;
 }
 .lb {
   display:flex; align-items:center; gap:7px;
@@ -162,21 +162,6 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   <p>Your AI infrastructure — every component and relationship, grouped by layer</p>
 </div>
 
-<!-- LAYER KEY BAR -->
-<div class="layer-bar">
-  <div class="lb"><div class="lb-dot" style="background:var(--c1)"></div><span style="color:var(--c1)"><span class="lb-num">01 </span>Entry</span></div>
-  <div class="lb"><div class="lb-dot" style="background:var(--c2)"></div><span style="color:var(--c2)"><span class="lb-num">02 </span>Boss</span></div>
-  <div class="lb"><div class="lb-dot" style="background:var(--c3)"></div><span style="color:var(--c3)"><span class="lb-num">03 </span>Brain</span></div>
-  <div class="lb"><div class="lb-dot" style="background:var(--c4)"></div><span style="color:var(--c4)"><span class="lb-num">04 </span>Agents</span></div>
-  <div class="lb"><div class="lb-dot" style="background:var(--c5)"></div><span style="color:var(--c5)"><span class="lb-num">05 </span>Tools</span></div>
-  <div class="lb"><div class="lb-dot" style="background:var(--c6)"></div><span style="color:var(--c6)"><span class="lb-num">06 </span>Files</span></div>
-  <div class="lb" style="margin-left:10px">
-    <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="#555" stroke-width="1.5" stroke-dasharray="4 3"/></svg>
-    <span style="color:#555;font-size:10px;letter-spacing:1px">Constraint / Feedback</span>
-  </div>
-</div>
-<div class="hint">Hover any node to see its role &nbsp;·&nbsp; <b>animated dots</b> show live data flow</div>
-
 <div class="eco-wrap">
 <div class="eco-canvas" id="ecoCanvas">
 
@@ -187,39 +172,27 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 
   <!-- 01 ENTRY -->
   <div class="cluster" style="left:20px;top:368px;width:155px;height:124px;
-    border-color:rgba(252,211,77,0.22); background:rgba(252,211,77,0.04);">
-    <div class="clabel" style="color:var(--c1)">01 Entry</div>
-  </div>
+    border-color:rgba(252,211,77,0.22); background:rgba(252,211,77,0.04);"></div>
 
   <!-- 02 BOSS (large central cluster) -->
   <div class="cluster" style="left:450px;top:155px;width:465px;height:548px;
-    border-color:rgba(218,63,246,0.2); background:radial-gradient(ellipse at 50% 50%, rgba(218,63,246,0.05) 0%, rgba(218,63,246,0.02) 100%);">
-    <div class="clabel" style="color:var(--c2)">02 Boss</div>
-  </div>
+    border-color:rgba(218,63,246,0.2); background:radial-gradient(ellipse at 50% 50%, rgba(218,63,246,0.05) 0%, rgba(218,63,246,0.02) 100%);"></div>
 
   <!-- 03 BRAIN -->
   <div class="cluster" style="left:1010px;top:90px;width:240px;height:132px;
-    border-color:rgba(96,165,250,0.18); background:rgba(96,165,250,0.03);">
-    <div class="clabel" style="color:var(--c3)">03 Brain</div>
-  </div>
+    border-color:rgba(96,165,250,0.18); background:rgba(96,165,250,0.03);"></div>
 
   <!-- 04 AGENTS -->
   <div class="cluster" style="left:178px;top:168px;width:192px;height:534px;
-    border-color:rgba(249,115,22,0.22); background:rgba(249,115,22,0.04);">
-    <div class="clabel" style="color:var(--c4)">04 Agents</div>
-  </div>
+    border-color:rgba(249,115,22,0.22); background:rgba(249,115,22,0.04);"></div>
 
   <!-- 05 TOOLS -->
   <div class="cluster" style="left:440px;top:720px;width:182px;height:112px;
-    border-color:rgba(45,212,191,0.18); background:rgba(45,212,191,0.025);">
-    <div class="clabel" style="color:var(--c5)">05 Tools</div>
-  </div>
+    border-color:rgba(45,212,191,0.18); background:rgba(45,212,191,0.025);"></div>
 
   <!-- 06 FILES -->
   <div class="cluster" style="left:1110px;top:368px;width:250px;height:124px;
-    border-color:rgba(74,222,128,0.18); background:rgba(74,222,128,0.025);">
-    <div class="clabel" style="color:var(--c6)">06 Files</div>
-  </div>
+    border-color:rgba(74,222,128,0.18); background:rgba(74,222,128,0.025);"></div>
 
   <!-- SVG connections (drawn by JS) -->
   <svg class="svg-layer" id="svgLayer">
@@ -381,6 +354,21 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 
 </div>
 </div>
+
+<!-- LAYER KEY BAR — below diagram -->
+<div class="layer-bar">
+  <div class="lb"><div class="lb-dot" style="background:var(--c1)"></div><span style="color:var(--c1)"><span class="lb-num">01 </span>Entry</span></div>
+  <div class="lb"><div class="lb-dot" style="background:var(--c2)"></div><span style="color:var(--c2)"><span class="lb-num">02 </span>Boss</span></div>
+  <div class="lb"><div class="lb-dot" style="background:var(--c3)"></div><span style="color:var(--c3)"><span class="lb-num">03 </span>Brain</span></div>
+  <div class="lb"><div class="lb-dot" style="background:var(--c4)"></div><span style="color:var(--c4)"><span class="lb-num">04 </span>Agents</span></div>
+  <div class="lb"><div class="lb-dot" style="background:var(--c5)"></div><span style="color:var(--c5)"><span class="lb-num">05 </span>Tools</span></div>
+  <div class="lb"><div class="lb-dot" style="background:var(--c6)"></div><span style="color:var(--c6)"><span class="lb-num">06 </span>Files</span></div>
+  <div class="lb" style="margin-left:10px">
+    <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="#555" stroke-width="1.5" stroke-dasharray="4 3"/></svg>
+    <span style="color:#555;font-size:10px;letter-spacing:1px">Constraint / Feedback</span>
+  </div>
+</div>
+<div class="hint">Hover any node to see its role &nbsp;·&nbsp; <b>animated dots</b> show live data flow</div>
 
 <div class="footer"><b>Ignite AI OS</b> — Poulomi Basu / weignitegrowth.com &nbsp;·&nbsp; 6-Layer WATC Framework &nbsp;·&nbsp; v2.3 &nbsp;·&nbsp; May 2026</div>
 
