@@ -132,6 +132,26 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 /* FOOTER */
 .footer { padding:18px; text-align:center; color:#444; font-size:12px; border-top:1px solid #181818; }
 .footer b { color:var(--c2); font-weight:600; }
+
+/* ── MOBILE RESPONSIVE ───────────────────────────── */
+@media (max-width: 900px) {
+  .hdr { padding:24px 16px 12px; }
+  .hdr::before { width:100%; }
+  .hdr h1 { font-size:24px; }
+  .hdr p { font-size:12px; }
+  .layer-bar { padding:10px 16px 6px; gap:5px 12px; }
+  .lb { font-size:10px; }
+  .lb-dot { width:7px; height:7px; }
+  .hint { font-size:11px; padding:5px 0 0; }
+  .eco-wrap { padding:8px 0 32px; overflow:hidden; }
+  .eco-canvas { margin:0; }
+  .footer { font-size:11px; padding:14px; }
+}
+@media (max-width: 480px) {
+  .hdr h1 { font-size:20px; }
+  .htag { font-size:10px; letter-spacing:2px; }
+  .layer-bar { gap:4px 10px; }
+}
 </style>
 </head>
 <body>
@@ -368,6 +388,23 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 const canvas = document.getElementById('ecoCanvas');
 const svg    = document.getElementById('svgLayer');
 const C = { c1:'#FCD34D', c2:'#DA3FF6', c3:'#60A5FA', c4:'#F97316', c5:'#2DD4BF', c6:'#4ADE80' };
+let scale = 1;
+
+function fitCanvas() {
+  const vw = window.innerWidth;
+  const pad = vw < 900 ? 0 : 64;
+  scale = Math.min(1, (vw - pad) / 1400);
+  if (scale < 1) {
+    canvas.style.transform = `scale(${scale})`;
+    canvas.style.transformOrigin = 'top left';
+    canvas.parentElement.style.minHeight = (870 * scale + 32) + 'px';
+    canvas.parentElement.style.overflowX = 'hidden';
+  } else {
+    canvas.style.transform = '';
+    canvas.parentElement.style.minHeight = '';
+    canvas.parentElement.style.overflowX = 'auto';
+  }
+}
 
 const EDGES = [
   // 1. User types → Hooks fire
@@ -415,7 +452,7 @@ const EDGES = [
 
 function center(id) {
   const el=document.getElementById(id), cr=canvas.getBoundingClientRect(), er=el.getBoundingClientRect();
-  return { x:er.left-cr.left+er.width/2, y:er.top-cr.top+er.height/2 };
+  return { x:(er.left-cr.left+er.width/2)/scale, y:(er.top-cr.top+er.height/2)/scale };
 }
 
 function makePath(fx,fy,tx,ty,opts={}) {
@@ -476,8 +513,9 @@ document.querySelectorAll('.node').forEach(node=>{
   node.addEventListener('mouseleave',()=>{ tip.style.display='none'; });
 });
 
-window.addEventListener('load', ()=>setTimeout(draw,130));
-window.addEventListener('resize',()=>setTimeout(draw,130));
+function init() { fitCanvas(); setTimeout(draw, 130); }
+window.addEventListener('load', init);
+window.addEventListener('resize', ()=>{ fitCanvas(); setTimeout(draw, 80); });
 </script>
 </body>
 </html>
