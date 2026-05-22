@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ignite AI OS — Ecosystem</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ── 6-LAYER COLORS ─────────────────────────────────────────
+   01 ENTRY  — yellow  #FCD34D   User prompt
+   02 BOSS   — fuchsia #DA3FF6   Hooks, Core + all governance
+   03 BRAIN  — sky     #60A5FA   Business knowledge / context
+   04 AGENTS — orange  #F97316   Agents + Skills
+   05 TOOLS  — teal    #2DD4BF   Tool integration / APIs
+   06 FILES  — green   #4ADE80   Local folders / output
+──────────────────────────────────────────────────────────── */
+:root {
+  --c1:#FCD34D; --c2:#DA3FF6; --c3:#60A5FA;
+  --c4:#F97316; --c5:#2DD4BF; --c6:#4ADE80;
+  --bg:#000; --card:#0e0e0e; --border:#1e1e1e;
+  --white:#fff; --gray:#94A3B8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-serif; overflow-x:hidden; }
+
+/* HEADER */
+.hdr { text-align:center; padding:48px 40px 24px; position:relative; }
+.hdr::before {
+  content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:700px; height:240px;
+  background:radial-gradient(ellipse, rgba(218,63,246,0.07) 0%, transparent 70%);
+  pointer-events:none;
+}
+.htag {
+  display:inline-block; background:rgba(218,63,246,0.09); border:1px solid rgba(218,63,246,0.3);
+  color:var(--c2); font-family:'Outfit',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:2.5px; text-transform:uppercase; padding:5px 16px; border-radius:20px; margin-bottom:16px;
+}
+.hdr h1 { font-family:'Outfit',sans-serif; font-size:38px; font-weight:900; line-height:1.1; margin-bottom:8px; }
+.hdr h1 span { color:var(--c2); }
+.hdr p { color:var(--gray); font-size:14px; }
+
+/* LAYER KEY BAR */
+.layer-bar {
+  display:flex; flex-wrap:wrap; gap:8px 20px; justify-content:center;
+  padding:16px 40px 8px; border-top:1px solid #141414; margin-top:18px;
+}
+.lb {
+  display:flex; align-items:center; gap:7px;
+  font-family:'Outfit',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:1.5px; text-transform:uppercase;
+}
+.lb-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.lb-num { opacity:0.4; font-size:10px; }
+.hint { text-align:center; padding:8px 0 0; color:#444; font-size:12px; font-style:italic; }
+.hint b { color:rgba(218,63,246,0.55); font-style:normal; font-weight:600; }
+
+/* CANVAS */
+.eco-wrap { width:100%; overflow-x:auto; padding:20px 32px 48px; }
+.eco-canvas { position:relative; width:1400px; height:870px; margin:0 auto; }
+
+/* CLUSTER BACKGROUNDS — z:2, behind nodes (z:10) but above SVG (z:1) */
+.cluster {
+  position:absolute; border-radius:20px; border:1px solid; z-index:2; pointer-events:none;
+}
+.clabel {
+  position:absolute; top:10px; left:14px;
+  font-family:'Outfit',sans-serif; font-size:10px; font-weight:800;
+  letter-spacing:2px; text-transform:uppercase; z-index:11;
+}
+
+/* SVG LAYER */
+.svg-layer { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+
+/* PULSE RINGS around Core */
+.pr {
+  position:absolute; left:700px; top:430px; transform:translate(-50%,-50%);
+  width:162px; height:92px; border-radius:14px;
+  border:1px solid rgba(218,63,246,0.22); pointer-events:none; z-index:0;
+  animation:pring 3.8s ease-out infinite;
+}
+.pr2 { animation-delay:1.25s; } .pr3 { animation-delay:2.5s; }
+@keyframes pring {
+  0%   { transform:translate(-50%,-50%) scale(1); opacity:0.5; }
+  100% { transform:translate(-50%,-50%) scale(2.6); opacity:0; }
+}
+
+/* NODES */
+.node {
+  position:absolute; transform:translate(-50%,-50%); z-index:10;
+  transition:transform .2s ease, filter .2s ease; cursor:default;
+}
+.node:hover { transform:translate(-50%,-50%) scale(1.07); filter:brightness(1.2); }
+.ni {
+  border-radius:13px; padding:11px 15px; border:1px solid var(--border);
+  background:var(--card); text-align:center; min-width:118px; position:relative; overflow:hidden;
+}
+.ni::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:currentColor; opacity:0.6; }
+.ni svg { display:block; margin:0 auto 5px; }
+.lbadge {
+  display:inline-block; font-family:'Outfit',sans-serif; font-size:9px; font-weight:800;
+  letter-spacing:1.8px; text-transform:uppercase; padding:2px 7px; border-radius:4px;
+  background:rgba(255,255,255,0.05); margin-bottom:5px; color:currentColor; opacity:0.75;
+}
+.nl { font-family:'Outfit',sans-serif; font-size:13px; font-weight:800; color:var(--white); line-height:1.2; }
+.ns { font-size:10px; color:var(--gray); margin-top:2px; line-height:1.4; }
+
+/* Layer color classes */
+.L1 .ni { color:var(--c1); border-color:rgba(252,211,77,0.32); }
+.L2 .ni { color:var(--c2); border-color:rgba(218,63,246,0.32); }
+.L3 .ni { color:var(--c3); border-color:rgba(96,165,250,0.32); }
+.L4 .ni { color:var(--c4); border-color:rgba(249,115,22,0.32); }
+.L5 .ni { color:var(--c5); border-color:rgba(45,212,191,0.32); }
+.L6 .ni { color:var(--c6); border-color:rgba(74,222,128,0.32); }
+
+/* Core — large, glowing */
+.node-core .ni {
+  color:var(--c2); border-color:var(--c2); min-width:152px; padding:17px 22px;
+  background:#080008;
+  box-shadow:0 0 22px rgba(218,63,246,0.28), 0 0 55px rgba(218,63,246,0.1), inset 0 0 20px rgba(218,63,246,0.04);
+}
+.node-core .nl { font-size:15px; }
+.node-core .ns { font-size:11px; }
+
+/* TOOLTIP */
+.tip {
+  position:absolute; background:#1c1c1c; border:1px solid #333; border-radius:9px;
+  padding:9px 13px; font-size:11px; color:var(--gray); pointer-events:none; z-index:100;
+  max-width:215px; display:none; line-height:1.55;
+}
+
+/* FOOTER */
+.footer { padding:18px; text-align:center; color:#444; font-size:12px; border-top:1px solid #181818; }
+.footer b { color:var(--c2); font-weight:600; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="htag">Ignite AI OS — Ecosystem Map</div>
+  <h1>Everything Is <span>Connected</span></h1>
+  <p>Your AI infrastructure — every component and relationship, grouped by layer</p>
+</div>
+
+<!-- LAYER KEY BAR -->
+<div class="layer-bar">
+  <div class="lb"><div class="lb-dot" style="background:var(--c1)"></div><span style="color:var(--c1)"><span class="lb-num">01 </span>Entry</span></div>
+  <div class="lb"><div class="lb-dot" style="background:var(--c2)"></div><span style="color:var(--c2)"><span class="lb-num">02 </span>Boss</span></div>
+  <div class="lb"><div class="lb-dot" style="background:var(--c3)"></div><span style="color:var(--c3)"><span class="lb-num">03 </span>Brain</span></div>
+  <div class="lb"><div class="lb-dot" style="background:var(--c4)"></div><span style="color:var(--c4)"><span class="lb-num">04 </span>Agents</span></div>
+  <div class="lb"><div class="lb-dot" style="background:var(--c5)"></div><span style="color:var(--c5)"><span class="lb-num">05 </span>Tools</span></div>
+  <div class="lb"><div class="lb-dot" style="background:var(--c6)"></div><span style="color:var(--c6)"><span class="lb-num">06 </span>Files</span></div>
+  <div class="lb" style="margin-left:10px">
+    <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="#555" stroke-width="1.5" stroke-dasharray="4 3"/></svg>
+    <span style="color:#555;font-size:10px;letter-spacing:1px">Constraint / Feedback</span>
+  </div>
+</div>
+<div class="hint">Hover any node to see its role &nbsp;·&nbsp; <b>animated dots</b> show live data flow</div>
+
+<div class="eco-wrap">
+<div class="eco-canvas" id="ecoCanvas">
+
+  <!-- Pulse rings -->
+  <div class="pr"></div><div class="pr pr2"></div><div class="pr pr3"></div>
+
+  <!-- ══ CLUSTER BACKGROUNDS ══ -->
+
+  <!-- 01 ENTRY -->
+  <div class="cluster" style="left:20px;top:368px;width:155px;height:124px;
+    border-color:rgba(252,211,77,0.22); background:rgba(252,211,77,0.04);">
+    <div class="clabel" style="color:var(--c1)">01 Entry</div>
+  </div>
+
+  <!-- 02 BOSS (large central cluster) -->
+  <div class="cluster" style="left:450px;top:155px;width:465px;height:548px;
+    border-color:rgba(218,63,246,0.2); background:radial-gradient(ellipse at 50% 50%, rgba(218,63,246,0.05) 0%, rgba(218,63,246,0.02) 100%);">
+    <div class="clabel" style="color:var(--c2)">02 Boss</div>
+  </div>
+
+  <!-- 03 BRAIN -->
+  <div class="cluster" style="left:1010px;top:90px;width:240px;height:132px;
+    border-color:rgba(96,165,250,0.18); background:rgba(96,165,250,0.03);">
+    <div class="clabel" style="color:var(--c3)">03 Brain</div>
+  </div>
+
+  <!-- 04 AGENTS -->
+  <div class="cluster" style="left:178px;top:168px;width:192px;height:534px;
+    border-color:rgba(249,115,22,0.22); background:rgba(249,115,22,0.04);">
+    <div class="clabel" style="color:var(--c4)">04 Agents</div>
+  </div>
+
+  <!-- 05 TOOLS -->
+  <div class="cluster" style="left:440px;top:720px;width:182px;height:112px;
+    border-color:rgba(45,212,191,0.18); background:rgba(45,212,191,0.025);">
+    <div class="clabel" style="color:var(--c5)">05 Tools</div>
+  </div>
+
+  <!-- 06 FILES -->
+  <div class="cluster" style="left:1110px;top:368px;width:250px;height:124px;
+    border-color:rgba(74,222,128,0.18); background:rgba(74,222,128,0.025);">
+    <div class="clabel" style="color:var(--c6)">06 Files</div>
+  </div>
+
+  <!-- SVG connections (drawn by JS) -->
+  <svg class="svg-layer" id="svgLayer">
+    <defs>
+      <filter id="gf" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="2.5" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ══ NODES ══ -->
+
+  <!-- 01 ENTRY — User -->
+  <div class="node L1" id="n-user" style="left:97px;top:430px"
+    data-tip="Every session starts here. You type a prompt — the OS activates automatically within milliseconds.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <div class="lbadge">01 Entry</div>
+      <div class="nl">You</div>
+      <div class="ns">User Prompt</div>
+    </div>
+  </div>
+
+  <!-- 02 BOSS — Hooks -->
+  <div class="node L2" id="n-hooks" style="left:532px;top:430px"
+    data-tip="Two hooks fire on every message automatically: skill_lookup scans agents/ and skills/ for a match, load_daily_log loads your memory and session history.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <div class="lbadge">02 Boss</div>
+      <div class="nl">Hooks</div>
+      <div class="ns">Fires on every prompt</div>
+    </div>
+  </div>
+
+  <!-- 02 BOSS — CLAUDE.md -->
+  <div class="node L2" id="n-rules" style="left:592px;top:212px"
+    data-tip="CLAUDE.md is the project bible. Four protocol files (context, guardrails, memory, skills) define every operating rule. Always loaded — these govern everything.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <div class="lbadge">02 Boss</div>
+      <div class="nl">CLAUDE.md</div>
+      <div class="ns">+ 4 Protocols</div>
+    </div>
+  </div>
+
+  <!-- 02 BOSS — Skill Lookup -->
+  <div class="node L2" id="n-lookup" style="left:564px;top:332px"
+    data-tip="skill_lookup hook scans .claude/agents/ then .claude/skills/ on every prompt. Injects any match into context. Agents always take priority over skills.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <div class="lbadge">02 Boss</div>
+      <div class="nl">Skill Lookup</div>
+      <div class="ns">agents/ → skills/</div>
+    </div>
+  </div>
+
+  <!-- 02 BOSS — Memory -->
+  <div class="node L2" id="n-memory" style="left:532px;top:640px"
+    data-tip="MEMORY.md holds stable preferences and learned behaviors. Daily logs track each session. Both are loaded at session start so the OS knows your full history.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      <div class="lbadge">02 Boss</div>
+      <div class="nl">Memory</div>
+      <div class="ns">MEMORY.md + Daily Logs</div>
+    </div>
+  </div>
+
+  <!-- 02 BOSS — Core (center) -->
+  <div class="node L2 node-core" id="n-core" style="left:700px;top:430px"
+    data-tip="The orchestrating Claude session. Reads matched skills/agents, loads context, delegates to tools, enforces guardrails, runs QA, routes output. Everything flows through here.">
+    <div class="ni">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      <div class="lbadge">02 Boss</div>
+      <div class="nl">AI OS Core</div>
+      <div class="ns">Claude Orchestrator</div>
+    </div>
+  </div>
+
+  <!-- 02 BOSS — QA Gate -->
+  <div class="node L2" id="n-qa" style="left:848px;top:430px"
+    data-tip="brand-voice-checker runs on every content output. PASS = deliver. FAIL = fix every flagged line, re-run, repeat until PASS. No exceptions, no close enough.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div class="lbadge">02 Boss</div>
+      <div class="nl">QA Gate</div>
+      <div class="ns">brand-voice-checker</div>
+    </div>
+  </div>
+
+  <!-- 02 BOSS — Guardrails -->
+  <div class="node L2" id="n-guard" style="left:800px;top:640px"
+    data-tip="Hard safety rules, always active. Never delete or send without confirmation. API keys in .env only. Protected: CLAUDE.md, context/, skills/, memory/. No exceptions.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="lbadge">02 Boss</div>
+      <div class="nl">Guardrails</div>
+      <div class="ns">Hard rules · always on</div>
+    </div>
+  </div>
+
+  <!-- 03 BRAIN — Context Files -->
+  <div class="node L3" id="n-context" style="left:1130px;top:156px"
+    data-tip="Brand voice, target audience (Marcus), offers, brand style guide, negative keywords. Loaded per task type before every content or design output.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <div class="lbadge">03 Brain</div>
+      <div class="nl">Context Files</div>
+      <div class="ns">Brand · Audience · Offers</div>
+    </div>
+  </div>
+
+  <!-- 04 AGENTS — Agents -->
+  <div class="node L4" id="n-agents" style="left:274px;top:268px"
+    data-tip="5 specialist agents: lead-researcher, icp-filter, seo-team-lead, svalinn-content, daily-prospecting. Autonomous, multi-step, always take priority over skills.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <div class="lbadge">04 Agents</div>
+      <div class="nl">Agents</div>
+      <div class="ns">5 specialist agents</div>
+    </div>
+  </div>
+
+  <!-- 04 AGENTS — Skills -->
+  <div class="node L4" id="n-skills" style="left:274px;top:618px"
+    data-tip="50+ skill workflows in .claude/skills/. Each has a SKILL.md + scripts/ folder. Content, design, sales, SEO, ops, carousels, cold email, and more.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+      <div class="lbadge">04 Agents</div>
+      <div class="nl">Skills</div>
+      <div class="ns">50+ workflows</div>
+    </div>
+  </div>
+
+  <!-- 05 TOOLS -->
+  <div class="node L5" id="n-tools" style="left:531px;top:776px"
+    data-tip="Python scripts in tools/ and skills/*/scripts/. Deterministic execution — one script, one job. API calls to HubSpot, Instantly, Perplexity, DALL-E, Fireflies, etc.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      <div class="lbadge">05 Tools</div>
+      <div class="nl">Tools + APIs</div>
+      <div class="ns">Scripts · HubSpot · etc.</div>
+    </div>
+  </div>
+
+  <!-- 06 FILES — Output -->
+  <div class="node L6" id="n-output" style="left:1235px;top:430px"
+    data-tip="Output routed to the correct local folder per context-protocol: 02-Content-Visibility, 03-Sales-Pipeline, 04-Client-Experience, 05-Ops-Admin, 06-Custom-Tools.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <div class="lbadge">06 Files</div>
+      <div class="nl">Output</div>
+      <div class="ns">Routed to correct folder</div>
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="tip" id="tip"></div>
+
+</div>
+</div>
+
+<div class="footer"><b>Ignite AI OS</b> — Poulomi Basu / weignitegrowth.com &nbsp;·&nbsp; 6-Layer WATC Framework &nbsp;·&nbsp; v2.3 &nbsp;·&nbsp; May 2026</div>
+
+<script>
+const canvas = document.getElementById('ecoCanvas');
+const svg    = document.getElementById('svgLayer');
+const C = { c1:'#FCD34D', c2:'#DA3FF6', c3:'#60A5FA', c4:'#F97316', c5:'#2DD4BF', c6:'#4ADE80' };
+
+const EDGES = [
+  // 1. User types → Hooks fire
+  { f:'n-user',    t:'n-hooks',   c:C.c1 },
+
+  // 2. Hooks trigger Skill Lookup (scans agents/ and skills/)
+  { f:'n-hooks',   t:'n-lookup',  c:C.c2 },
+
+  // 3. Hooks load Memory into session (load_daily_log)
+  { f:'n-hooks',   t:'n-memory',  c:C.c2 },
+
+  // 4. CLAUDE.md + Rules always loaded into Core
+  { f:'n-rules',   t:'n-core',    c:C.c2 },
+
+  // 5. Memory feeds into Core (session continuity)
+  { f:'n-memory',  t:'n-core',    c:C.c2 },
+
+  // 6. Context Files loaded into Core per task type
+  { f:'n-context', t:'n-core',    c:C.c3 },
+
+  // 7. Skill Lookup routes to the right Agent or Skill
+  { f:'n-lookup',  t:'n-agents',  c:C.c4 },
+  { f:'n-lookup',  t:'n-skills',  c:C.c4 },
+
+  // 8. Agents and Skills execute — results return to Core
+  { f:'n-agents',  t:'n-core',    c:C.c4 },
+  { f:'n-skills',  t:'n-core',    c:C.c4 },
+
+  // 9. Agents and Skills call Tools / external APIs
+  { f:'n-agents',  t:'n-tools',   c:C.c5 },
+  { f:'n-skills',  t:'n-tools',   c:C.c5 },
+
+  // 10. Guardrails constrain Core at all times (dashed = passive enforcement)
+  { f:'n-guard',   t:'n-core',    c:C.c2, dash:true },
+
+  // 11. Core passes output through QA Gate
+  { f:'n-core',    t:'n-qa',      c:C.c2 },
+
+  // 12. QA PASS → Output routed to correct folder
+  { f:'n-qa',      t:'n-output',  c:C.c6 },
+
+  // 13. QA FAIL → loops back to Core (re-generate + re-check)
+  { f:'n-qa',      t:'n-core',    c:'#FB923C', dash:true, feedback:true },
+];
+
+function center(id) {
+  const el=document.getElementById(id), cr=canvas.getBoundingClientRect(), er=el.getBoundingClientRect();
+  return { x:er.left-cr.left+er.width/2, y:er.top-cr.top+er.height/2 };
+}
+
+function makePath(fx,fy,tx,ty,opts={}) {
+  if (opts.feedback) return `M${fx},${fy} C${fx},${fy+118} ${tx},${ty+118} ${tx},${ty}`;
+  const dx=tx-fx, dy=ty-fy, d=Math.sqrt(dx*dx+dy*dy), k=Math.min(d*0.38,100);
+  if (Math.abs(dx)>=Math.abs(dy)) {
+    return `M${fx},${fy} C${fx+dx*0.38},${fy-k*0.2} ${tx-dx*0.38},${ty-k*0.2} ${tx},${ty}`;
+  }
+  const nx=-dy/d, ny=dx/d, o=k*0.35;
+  return `M${fx},${fy} C${fx+dx*0.35+nx*o},${fy+dy*0.35+ny*o} ${tx-dx*0.35+nx*o},${ty-dy*0.35+ny*o} ${tx},${ty}`;
+}
+
+function ns(tag,attrs) {
+  const el=document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const [k,v] of Object.entries(attrs)) {
+    if(k==='href') el.setAttributeNS('http://www.w3.org/1999/xlink','href',v);
+    else el.setAttribute(k,v);
+  }
+  return el;
+}
+
+function draw() {
+  const defs=svg.querySelector('defs');
+  [...svg.children].forEach(c=>{ if(c!==defs) c.remove(); });
+
+  EDGES.forEach((edge,i) => {
+    const f=center(edge.f), t=center(edge.t);
+    const d=makePath(f.x,f.y,t.x,t.y,edge), pid=`ep${i}`;
+
+    const grad=ns('linearGradient',{id:`eg${i}`,gradientUnits:'userSpaceOnUse',x1:f.x,y1:f.y,x2:t.x,y2:t.y});
+    const s1=ns('stop',{}); s1.setAttribute('offset','0%'); s1.setAttribute('stop-color',edge.c); s1.setAttribute('stop-opacity','0.25');
+    const s2=ns('stop',{}); s2.setAttribute('offset','100%'); s2.setAttribute('stop-color',edge.c); s2.setAttribute('stop-opacity','0.85');
+    grad.appendChild(s1); grad.appendChild(s2); defs.appendChild(grad);
+
+    svg.appendChild(ns('path',{d,stroke:edge.c,'stroke-width':'3.5',fill:'none',opacity:'0.13',filter:'url(#gf)'}));
+    svg.appendChild(ns('path',{id:pid,d,stroke:`url(#eg${i})`,'stroke-width':'1.5',fill:'none',
+      opacity:edge.dash?'0.4':'0.65',...(edge.dash?{'stroke-dasharray':'5 4'}:{})}));
+
+    const dot=ns('circle',{r:'3',fill:edge.c,opacity:'0.92',filter:'url(#gf)'});
+    const dur=(2.2+(i%5)*0.5).toFixed(2), delay=((i*0.36)%parseFloat(dur)).toFixed(2);
+    const am=ns('animateMotion',{dur:`${dur}s`,repeatCount:'indefinite',begin:`${delay}s`});
+    am.appendChild(ns('mpath',{href:`#${pid}`}));
+    dot.appendChild(am); svg.appendChild(dot);
+  });
+}
+
+const tip=document.getElementById('tip');
+document.querySelectorAll('.node').forEach(node=>{
+  node.addEventListener('mouseenter',function(){
+    const text=this.dataset.tip; if(!text) return;
+    tip.textContent=text; tip.style.display='block';
+    const cr=canvas.getBoundingClientRect(), nr=this.getBoundingClientRect();
+    let tx=nr.left-cr.left+nr.width/2-108, ty=nr.bottom-cr.top+10;
+    tx=Math.max(8,Math.min(tx,1400-228));
+    if(ty+90>870) ty=nr.top-cr.top-84;
+    tip.style.left=tx+'px'; tip.style.top=ty+'px';
+  });
+  node.addEventListener('mouseleave',()=>{ tip.style.display='none'; });
+});
+
+window.addEventListener('load', ()=>setTimeout(draw,130));
+window.addEventListener('resize',()=>setTimeout(draw,130));
+</script>
+</body>
+</html>
