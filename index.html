@@ -862,6 +862,8 @@ if (revEl) {
 function dismissOldWay() {
   const btn = document.querySelector('.btn-new-way');
   if (btn) btn.style.animation = 'none';
+  // Snap scroll to Screen 2 instantly before the overlay slides away
+  window.scrollTo({ top: 0, behavior: 'instant' });
   document.getElementById('screen-old').classList.add('dismissed');
 }
 function showOldWay() {
