@@ -16,7 +16,7 @@
 ──────────────────────────────────────────────────────────── */
 :root {
   --c1:#FCD34D; --c2:#DA3FF6; --c3:#60A5FA;
-  --c4:#F97316; --c5:#2DD4BF; --c6:#4ADE80;
+  --c4:#F97316; --c5:#2DD4BF; --c6:#4ADE80; --c7:#F59E0B;
   --bg:#000; --card:#0e0e0e; --border:#1e1e1e;
   --white:#fff; --gray:#94A3B8;
 }
@@ -57,17 +57,23 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 
 /* CANVAS */
 .eco-wrap { width:100%; overflow-x:auto; padding:8px 32px 48px; }
-.eco-canvas { position:relative; width:1400px; height:870px; margin:0 auto; }
+.eco-canvas { position:relative; width:1400px; height:940px; margin:0 auto; }
 
 /* CLUSTER BACKGROUNDS — z:2, behind nodes (z:10) but above SVG (z:1) */
 .cluster {
-  position:absolute; border-radius:20px; border:1px solid; z-index:2; pointer-events:none;
+  position:absolute; border-radius:20px; border:1.5px solid; z-index:2; pointer-events:none;
 }
-.clabel {
-  position:absolute; top:10px; left:14px;
-  font-family:'Outfit',sans-serif; font-size:10px; font-weight:800;
-  letter-spacing:2px; text-transform:uppercase; z-index:11;
+.cluster-hdr {
+  position:absolute; bottom:100%; left:0;
+  margin-bottom:6px;
+  display:flex; align-items:center; gap:9px; padding:5px 12px 5px 8px;
+  border-radius:8px;
+  font-family:'Outfit',sans-serif; font-size:18px; font-weight:800;
+  letter-spacing:3px; text-transform:uppercase;
+  white-space:nowrap;
+  background:rgba(0,0,0,0.45); backdrop-filter:blur(4px);
 }
+.cluster-hdr svg { flex-shrink:0; width:22px; height:22px; }
 
 /* SVG LAYER */
 .svg-layer { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
@@ -112,6 +118,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 .L4 .ni { color:var(--c4); border-color:rgba(249,115,22,0.32); }
 .L5 .ni { color:var(--c5); border-color:rgba(45,212,191,0.32); }
 .L6 .ni { color:var(--c6); border-color:rgba(74,222,128,0.32); }
+.L7 .ni { color:var(--c7); border-color:rgba(245,158,11,0.32); }
 
 /* Core — large, glowing */
 .node-core .ni {
@@ -172,27 +179,66 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 
   <!-- 01 ENTRY -->
   <div class="cluster" style="left:20px;top:368px;width:155px;height:124px;
-    border-color:rgba(252,211,77,0.22); background:rgba(252,211,77,0.04);"></div>
+    border-color:rgba(252,211,77,0.45); background:rgba(252,211,77,0.06);">
+    <div class="cluster-hdr" style="color:var(--c1)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      Command
+    </div>
+  </div>
 
-  <!-- 02 BOSS (large central cluster) -->
+  <!-- 02 BOSS → "The Brain" -->
   <div class="cluster" style="left:450px;top:155px;width:465px;height:548px;
-    border-color:rgba(218,63,246,0.2); background:radial-gradient(ellipse at 50% 50%, rgba(218,63,246,0.05) 0%, rgba(218,63,246,0.02) 100%);"></div>
+    border-color:rgba(218,63,246,0.45); background:radial-gradient(ellipse at 50% 50%, rgba(218,63,246,0.08) 0%, rgba(218,63,246,0.03) 100%);">
+    <div class="cluster-hdr" style="color:var(--c2)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>
+      The Brain
+    </div>
+  </div>
 
-  <!-- 03 BRAIN -->
+  <!-- 03 BRAIN → "Knowledge" -->
   <div class="cluster" style="left:1010px;top:90px;width:240px;height:132px;
-    border-color:rgba(96,165,250,0.18); background:rgba(96,165,250,0.03);"></div>
+    border-color:rgba(96,165,250,0.45); background:rgba(96,165,250,0.06);">
+    <div class="cluster-hdr" style="color:var(--c3)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      Data
+    </div>
+  </div>
 
-  <!-- 04 AGENTS -->
+  <!-- 04 AGENTS → "AI Employees" -->
   <div class="cluster" style="left:178px;top:168px;width:192px;height:534px;
-    border-color:rgba(249,115,22,0.22); background:rgba(249,115,22,0.04);"></div>
+    border-color:rgba(249,115,22,0.5); background:rgba(249,115,22,0.07);">
+    <div class="cluster-hdr" style="color:var(--c4)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v2"/><path d="M10 13h4"/></svg>
+      AI Employees
+    </div>
+  </div>
 
   <!-- 05 TOOLS -->
-  <div class="cluster" style="left:440px;top:720px;width:182px;height:112px;
-    border-color:rgba(45,212,191,0.18); background:rgba(45,212,191,0.025);"></div>
+  <div class="cluster" style="left:440px;top:758px;width:182px;height:148px;
+    border-color:rgba(45,212,191,0.45); background:rgba(45,212,191,0.06);">
+    <div class="cluster-hdr" style="color:var(--c5)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      Tools
+    </div>
+  </div>
 
   <!-- 06 FILES -->
   <div class="cluster" style="left:1110px;top:368px;width:250px;height:124px;
-    border-color:rgba(74,222,128,0.18); background:rgba(74,222,128,0.025);"></div>
+    border-color:rgba(74,222,128,0.45); background:rgba(74,222,128,0.06);">
+    <div class="cluster-hdr" style="color:var(--c6)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+      Result
+    </div>
+  </div>
+
+  <!-- 07 AUTOMATION -->
+  <div class="cluster" style="left:1100px;top:560px;width:260px;height:148px;
+    border-color:rgba(245,158,11,0.45); background:rgba(245,158,11,0.06);">
+    <div class="cluster-hdr" style="color:var(--c7)">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      Automation
+    </div>
+  </div>
 
   <!-- SVG connections (drawn by JS) -->
   <svg class="svg-layer" id="svgLayer">
@@ -328,7 +374,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   </div>
 
   <!-- 05 TOOLS -->
-  <div class="node L5" id="n-tools" style="left:531px;top:776px"
+  <div class="node L5" id="n-tools" style="left:531px;top:836px"
     data-tip="Python scripts in tools/ and skills/*/scripts/. Deterministic execution — one script, one job. API calls to HubSpot, Instantly, Perplexity, DALL-E, Fireflies, etc.">
     <div class="ni">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
@@ -349,6 +395,17 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
     </div>
   </div>
 
+  <!-- 07 AUTOMATION -->
+  <div class="node L7" id="n-auto" style="left:1230px;top:640px"
+    data-tip="Background workflows that run without a prompt. Make and Zapier scenarios, scheduled cron tasks, and triggered pipelines that extend the OS beyond the chat interface.">
+    <div class="ni">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      <div class="lbadge">07 Auto</div>
+      <div class="nl">Automation</div>
+      <div class="ns">Make · Zapier · Cron</div>
+    </div>
+  </div>
+
   <!-- Tooltip -->
   <div class="tip" id="tip"></div>
 
@@ -363,6 +420,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   <div class="lb"><div class="lb-dot" style="background:var(--c4)"></div><span style="color:var(--c4)"><span class="lb-num">04 </span>Agents</span></div>
   <div class="lb"><div class="lb-dot" style="background:var(--c5)"></div><span style="color:var(--c5)"><span class="lb-num">05 </span>Tools</span></div>
   <div class="lb"><div class="lb-dot" style="background:var(--c6)"></div><span style="color:var(--c6)"><span class="lb-num">06 </span>Files</span></div>
+  <div class="lb"><div class="lb-dot" style="background:var(--c7)"></div><span style="color:var(--c7)"><span class="lb-num">07 </span>Auto</span></div>
   <div class="lb" style="margin-left:10px">
     <svg width="24" height="8"><line x1="0" y1="4" x2="24" y2="4" stroke="#555" stroke-width="1.5" stroke-dasharray="4 3"/></svg>
     <span style="color:#555;font-size:10px;letter-spacing:1px">Constraint / Feedback</span>
@@ -370,12 +428,12 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 </div>
 <div class="hint">Hover any node to see its role &nbsp;·&nbsp; <b>animated dots</b> show live data flow</div>
 
-<div class="footer"><b>Ignite AI OS</b> — Poulomi Basu / weignitegrowth.com &nbsp;·&nbsp; 6-Layer WATC Framework &nbsp;·&nbsp; v2.3 &nbsp;·&nbsp; May 2026</div>
+<div class="footer"><b>Ignite AI OS</b> — Poulomi Basu / weignitegrowth.com &nbsp;·&nbsp; 7-Layer WATC Framework &nbsp;·&nbsp; v2.4 &nbsp;·&nbsp; May 2026</div>
 
 <script>
 const canvas = document.getElementById('ecoCanvas');
 const svg    = document.getElementById('svgLayer');
-const C = { c1:'#FCD34D', c2:'#DA3FF6', c3:'#60A5FA', c4:'#F97316', c5:'#2DD4BF', c6:'#4ADE80' };
+const C = { c1:'#FCD34D', c2:'#DA3FF6', c3:'#60A5FA', c4:'#F97316', c5:'#2DD4BF', c6:'#4ADE80', c7:'#F59E0B' };
 let scale = 1;
 
 function fitCanvas() {
@@ -385,7 +443,7 @@ function fitCanvas() {
   if (scale < 1) {
     canvas.style.transform = `scale(${scale})`;
     canvas.style.transformOrigin = 'top left';
-    canvas.parentElement.style.minHeight = (870 * scale + 32) + 'px';
+    canvas.parentElement.style.minHeight = (940 * scale + 32) + 'px';
     canvas.parentElement.style.overflowX = 'hidden';
   } else {
     canvas.style.transform = '';
@@ -436,6 +494,9 @@ const EDGES = [
 
   // 13. QA FAIL → loops back to Core (re-generate + re-check)
   { f:'n-qa',      t:'n-core',    c:'#FB923C', dash:true, feedback:true },
+
+  // 14. Core triggers background Automation workflows
+  { f:'n-core',    t:'n-auto',    c:C.c7 },
 ];
 
 function center(id) {
