@@ -51,7 +51,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 
 /* CANVAS */
 .eco-wrap { width:100%; overflow:hidden; padding:4px 0 0; }
-.eco-canvas { position:relative; width:1600px; height:1000px; margin:0 auto; }
+.eco-canvas { position:relative; width:1600px; height:1000px; margin:0; }
 
 /* CLUSTER BACKGROUNDS — z:2, behind nodes (z:10) but above SVG (z:1) */
 .cluster {
@@ -421,7 +421,8 @@ function fitCanvas() {
   const scaleW = (vw - 16) / 1600;
   const scaleH = (vh - hdrH - 8) / 1000;
   scale = Math.min(1, scaleW, scaleH);
-  canvas.style.transform = `scale(${scale})`;
+  const offsetX = Math.max(0, (vw - 1600 * scale) / 2);
+  canvas.style.transform = `translateX(${offsetX}px) scale(${scale})`;
   canvas.style.transformOrigin = 'top left';
   canvas.parentElement.style.height = (1000 * scale + 4) + 'px';
   canvas.parentElement.style.overflow = 'hidden';
