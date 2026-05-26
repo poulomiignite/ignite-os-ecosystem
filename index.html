@@ -21,7 +21,8 @@
   --white:#fff; --gray:#94A3B8;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-serif; overflow-x:hidden; }
+html { height:100%; }
+body { height:100%; background:var(--bg); color:var(--white); font-family:'Open Sans',sans-serif; overflow:hidden; display:flex; flex-direction:column; }
 
 /* HEADER */
 .hdr { text-align:center; padding:12px 40px 4px; position:relative; }
@@ -50,8 +51,8 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 .hint b { color:rgba(218,63,246,0.55); font-style:normal; font-weight:600; }
 
 /* CANVAS */
-.eco-wrap { width:100%; overflow:hidden; padding:4px 0 0; display:flex; justify-content:center; }
-.eco-canvas { position:relative; width:1600px; height:1000px; margin:0; }
+.eco-wrap { flex:1; min-height:0; overflow:hidden; padding:4px 0 0; display:flex; justify-content:center; align-items:flex-start; }
+.eco-canvas { position:relative; width:1600px; height:820px; margin:0; }
 
 /* CLUSTER BACKGROUNDS — z:2, behind nodes (z:10) but above SVG (z:1) */
 .cluster {
@@ -190,7 +191,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   </div>
 
   <!-- 03 BRAIN → "Business Brain" -->
-  <div class="cluster" style="left:350px;top:70px;width:260px;height:280px;
+  <div class="cluster" style="left:376px;top:70px;width:208px;height:140px;
     border-color:rgba(96,165,250,0.45); background:rgba(96,165,250,0.06);">
     <div class="cluster-hdr" style="color:var(--c3)">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>
@@ -199,7 +200,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   </div>
 
   <!-- 04 AGENTS → "AI Employees" -->
-  <div class="cluster" style="left:350px;top:440px;width:260px;height:520px;
+  <div class="cluster" style="left:376px;top:290px;width:208px;height:305px;
     border-color:rgba(249,115,22,0.5); background:rgba(249,115,22,0.07);">
     <div class="cluster-hdr" style="color:var(--c4)">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v2"/><path d="M10 13h4"/></svg>
@@ -208,7 +209,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   </div>
 
   <!-- 05 TOOLS -->
-  <div class="cluster" style="left:642px;top:610px;width:215px;height:320px;
+  <div class="cluster" style="left:642px;top:610px;width:208px;height:140px;
     border-color:rgba(45,212,191,0.45); background:rgba(45,212,191,0.06);">
     <div class="cluster-hdr" style="color:var(--c5)">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
@@ -226,7 +227,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   </div>
 
   <!-- 07 AUTOMATION -->
-  <div class="cluster" style="left:867px;top:610px;width:225px;height:320px;
+  <div class="cluster" style="left:867px;top:610px;width:208px;height:140px;
     border-color:rgba(245,158,11,0.45); background:rgba(245,158,11,0.06);">
     <div class="cluster-hdr" style="color:var(--c7)">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
@@ -335,7 +336,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   </div>
 
   <!-- 03 BRAIN — Context Files -->
-  <div class="node L3" id="n-context" style="left:480px;top:210px"
+  <div class="node L3" id="n-context" style="left:480px;top:140px"
     data-tip="Brand voice, target audience (Marcus), offers, brand style guide, negative keywords. Loaded per task type before every content or design output.">
     <div class="ni">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -346,7 +347,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   </div>
 
   <!-- 04 AGENTS — Agents -->
-  <div class="node L4" id="n-agents" style="left:480px;top:545px"
+  <div class="node L4" id="n-agents" style="left:480px;top:360px"
     data-tip="5 specialist agents: lead-researcher, icp-filter, seo-team-lead, svalinn-content, daily-prospecting. Autonomous, multi-step, always take priority over skills.">
     <div class="ni">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -357,7 +358,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   </div>
 
   <!-- 04 AGENTS — Skills -->
-  <div class="node L4" id="n-skills" style="left:480px;top:710px"
+  <div class="node L4" id="n-skills" style="left:480px;top:525px"
     data-tip="50+ skill workflows in .claude/skills/. Each has a SKILL.md + scripts/ folder. Content, design, sales, SEO, ops, carousels, cold email, and more.">
     <div class="ni">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
@@ -368,7 +369,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   </div>
 
   <!-- 05 TOOLS -->
-  <div class="node L5" id="n-tools" style="left:749px;top:770px"
+  <div class="node L5" id="n-tools" style="left:746px;top:680px"
     data-tip="Python scripts in tools/ and skills/*/scripts/. Deterministic execution — one script, one job. API calls to HubSpot, Instantly, Perplexity, DALL-E, Fireflies, etc.">
     <div class="ni">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
@@ -390,7 +391,7 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   </div>
 
   <!-- 07 AUTOMATION -->
-  <div class="node L7" id="n-auto" style="left:977px;top:770px"
+  <div class="node L7" id="n-auto" style="left:971px;top:680px"
     data-tip="Background workflows that run without a prompt. Make and Zapier scenarios, scheduled cron tasks, and triggered pipelines that extend the OS beyond the chat interface.">
     <div class="ni">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
@@ -415,16 +416,12 @@ let scale = 1;
 
 function fitCanvas() {
   const vw = window.innerWidth;
-  const vh = window.innerHeight;
-  const hdr = document.querySelector('.hdr');
-  const hdrH = hdr ? hdr.getBoundingClientRect().height : 70;
+  const wrapH = canvas.parentElement.clientHeight;
   const scaleW = (vw - 16) / 1600;
-  const scaleH = (vh - hdrH - 8) / 1000;
+  const scaleH = (wrapH - 4) / 820;
   scale = Math.min(1, scaleW, scaleH);
   canvas.style.transform = `scale(${scale})`;
   canvas.style.transformOrigin = 'top center';
-  canvas.parentElement.style.height = (1000 * scale + 4) + 'px';
-  canvas.parentElement.style.overflow = 'hidden';
 }
 
 const EDGES = [
