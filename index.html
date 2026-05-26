@@ -236,38 +236,61 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
   50%      { transform:translateX(-50%) translateY(-12px); }
 }
 
-/* Back to Old Way button (screen 2) */
-.btn-back-old {
-  position:fixed; bottom:16px; left:50%; transform:translateX(-50%); z-index:10;
+/* ── SCREEN NAVIGATION BARS ──────────────────────── */
+.screen-nav {
+  flex-shrink:0; display:flex; justify-content:center; align-items:center;
+  gap:16px; padding:10px 0 14px;
+}
+.btn-nav-ghost {
   background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
   color:#374151; cursor:pointer;
   font-family:'Outfit',sans-serif; font-size:11px; font-weight:700;
   letter-spacing:1.5px; text-transform:uppercase;
-  padding:8px 16px; border-radius:20px;
+  padding:8px 18px; border-radius:20px;
   display:flex; align-items:center; gap:6px;
   transition:background 0.2s, color 0.2s, border-color 0.2s;
 }
-.btn-back-old:hover { background:rgba(255,255,255,0.07); color:#64748B; border-color:rgba(255,255,255,0.14); }
-
-/* ── HOW IT CONNECTS SECTION ────────────────────── */
-.how-connects { background:var(--bg); }
-.hc-slide {
-  min-height:100vh; display:flex; flex-direction:column;
-  justify-content:center; align-items:center;
-  padding:72px 48px 80px; border-top:1px solid #141414; text-align:center;
+.btn-nav-ghost:hover { background:rgba(255,255,255,0.07); color:#64748B; border-color:rgba(255,255,255,0.14); }
+.btn-nav-primary {
+  background:linear-gradient(135deg,var(--c2),#c026d3);
+  color:var(--white); border:none; cursor:pointer;
+  font-family:'Outfit',sans-serif; font-size:11px; font-weight:800;
+  letter-spacing:1.5px; text-transform:uppercase;
+  padding:8px 22px; border-radius:20px;
+  display:flex; align-items:center; gap:7px;
+  box-shadow:0 0 18px rgba(218,63,246,0.3);
+  transition:filter 0.2s;
 }
-.hc-slide + .hc-slide { border-top:1px solid #0e0e0e; background:#050505; }
+.btn-nav-primary:hover { filter:brightness(1.15); }
+
+/* ── HOW IT CONNECTS SCREEN (screen 3) ───────────── */
+#screen-how {
+  height:100vh; display:flex; flex-direction:column;
+  background:var(--bg); padding:40px 48px 0;
+  border-top:1px solid #141414;
+}
+.hc-header { text-align:center; flex-shrink:0; margin-bottom:24px; }
 .hc-eyebrow {
   color:var(--c2); font-family:'Outfit',sans-serif; font-size:11px; font-weight:700;
-  letter-spacing:3px; text-transform:uppercase; margin-bottom:20px;
+  letter-spacing:3px; text-transform:uppercase; margin-bottom:12px;
 }
 .hc-title {
-  font-family:'Outfit',sans-serif; font-size:clamp(26px,3.2vw,42px); font-weight:900;
-  line-height:1.15; letter-spacing:-0.02em; max-width:900px; margin-bottom:44px; color:var(--white);
+  font-family:'Outfit',sans-serif; font-size:clamp(20px,2.4vw,34px); font-weight:900;
+  line-height:1.15; letter-spacing:-0.02em; max-width:900px; margin:0 auto; color:var(--white);
 }
 .hc-title em { font-style:normal; color:var(--c2); }
-.hc-svg-wrap { width:100%; max-width:840px; }
-.hc-svg-wrap svg { display:block; width:100%; height:auto; }
+.hc-cols {
+  flex:1; min-height:0;
+  display:flex; gap:40px; align-items:center;
+  overflow:hidden; padding:0 20px;
+}
+.hc-col { flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; gap:8px; }
+.hc-col-label {
+  font-family:'Outfit',sans-serif; font-size:10px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase; color:#374151;
+  flex-shrink:0;
+}
+.hc-col svg { display:block; width:100%; height:auto; max-height:calc(100vh - 230px); }
 
 /* ── MOBILE RESPONSIVE ───────────────────────────── */
 @media (max-width: 900px) {
@@ -680,16 +703,34 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
 
 </div>
 </div>
+
+<!-- Screen 2 nav -->
+<div class="screen-nav">
+  <button class="btn-nav-ghost" onclick="showOldWay()">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    The Old Way
+  </button>
+  <button class="btn-nav-primary" onclick="showHowConnects()">
+    How It Connects
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+
 </div><!-- /.main-screen -->
 
-<!-- ══ HOW IT CONNECTS SECTION ══ -->
-<section class="how-connects">
+<!-- ══ HOW IT CONNECTS SCREEN (screen 3) ══ -->
+<section id="screen-how">
 
-  <!-- Slide 1: AI wraps your business -->
-  <div class="hc-slide">
+  <div class="hc-header">
     <div class="hc-eyebrow">How It Connects</div>
     <h2 class="hc-title">AI doesn't sit beside your business.<br><em>It wraps it in a connected, integrated ecosystem.</em></h2>
-    <div class="hc-svg-wrap">
+  </div>
+
+  <div class="hc-cols">
+
+  <!-- Left: AI wraps your business -->
+  <div class="hc-col">
+    <div class="hc-col-label">The AI Layer</div>
       <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="hc-glow-h" x1="0" y1="0" x2="0" y2="1">
@@ -721,14 +762,11 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
         <text x="400" y="240" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="12" font-weight="700" fill="rgba(244,240,255,0.5)" letter-spacing="2.8">YOUR</text>
         <text x="400" y="272" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="26" font-weight="800" fill="#F4F0FF" letter-spacing="-0.01em">BUSINESS</text>
       </svg>
-    </div>
-  </div>
+  </div><!-- /.hc-col left -->
 
-  <!-- Slide 2: Radial tool connections -->
-  <div class="hc-slide">
-    <div class="hc-eyebrow">The Ecosystem</div>
-    <h2 class="hc-title">No-code systems — predominantly <em>Claude<br>+ Your existing business tools + Automation</em></h2>
-    <div class="hc-svg-wrap">
+  <!-- Right: Claude + tools spokes -->
+  <div class="hc-col">
+    <div class="hc-col-label">The Ecosystem</div>
       <svg viewBox="0 0 800 580" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="hcs0" x1="400" y1="290" x2="400" y2="70"  gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#DA3FF6" stop-opacity="0.9"/><stop offset="100%" stop-color="#DA3FF6" stop-opacity="0.12"/></linearGradient>
@@ -780,16 +818,23 @@ body { background:var(--bg); color:var(--white); font-family:'Open Sans',sans-se
         <text x="160" y="226" text-anchor="end"    fill="white" font-family="Outfit,sans-serif" font-size="16" font-weight="600">Zapier</text>
         <text x="248" y="112" text-anchor="end"    fill="white" font-family="Outfit,sans-serif" font-size="16" font-weight="600">Fireflies</text>
       </svg>
-    </div>
+  </div><!-- /.hc-col right -->
+
+  </div><!-- /.hc-cols -->
+
+  <!-- Screen 3 nav -->
+  <div class="screen-nav">
+    <button class="btn-nav-ghost" onclick="showOldWay()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      The Old Way
+    </button>
+    <button class="btn-nav-ghost" onclick="showNewWay()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+      The New Way
+    </button>
   </div>
 
 </section>
-
-<!-- Back to Old Way (screen 2) -->
-<button class="btn-back-old" onclick="showOldWay()">
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-  The Old Way
-</button>
 
 <script>
 // Old Way — revision cycle
@@ -825,6 +870,12 @@ function showOldWay() {
     const btn = document.querySelector('.btn-new-way');
     if (btn) btn.style.animation = '';
   }, 650);
+}
+function showHowConnects() {
+  document.getElementById('screen-how').scrollIntoView({behavior:'smooth'});
+}
+function showNewWay() {
+  document.querySelector('.main-screen').scrollIntoView({behavior:'smooth'});
 }
 
 const canvas = document.getElementById('ecoCanvas');
