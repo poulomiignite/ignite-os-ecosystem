@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand AIOS — Packages</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ── BRAND TOKENS (matches Ignite AI OS ecosystem) ───────────
+   Single accent — fuchsia #DA3FF6 (The Boss / brand). No tier is
+   "better": all three share the same accent so buyers choose by fit.
+──────────────────────────────────────────────────────────── */
+:root{
+  --c2:#DA3FF6;
+  --bg:#000; --card:#0e0e0e; --card2:#121212; --border:#1e1e1e;
+  --white:#fff; --gray:#94A3B8; --muted:#475569;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg); color:var(--white);
+  font-family:'Open Sans',sans-serif; line-height:1.55;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+
+/* ── HEADER ─────────────────────────────────────────── */
+.hero{text-align:center; padding:64px 24px 28px; position:relative;}
+.hero::before{
+  content:''; position:absolute; top:-120px; left:50%; transform:translateX(-50%);
+  width:680px; height:340px; max-width:100%;
+  background:radial-gradient(ellipse at center, rgba(218,63,246,0.16) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+}
+.hero > *{position:relative; z-index:1;}
+.htag{
+  display:inline-block; background:rgba(218,63,246,0.09); border:1px solid rgba(218,63,246,0.3);
+  color:var(--c2); font-family:'Outfit',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase; padding:5px 16px; border-radius:20px; margin-bottom:22px;
+}
+.hero h1{
+  font-family:'Outfit',sans-serif; font-weight:900; line-height:1.08;
+  font-size:clamp(34px,5.4vw,60px); letter-spacing:-0.02em; margin-bottom:18px;
+}
+.hero h1 span{color:var(--c2);}
+.hero p{color:var(--gray); font-size:clamp(22px,2.4vw,27px); max-width:840px; margin:0 auto;}
+
+/* Choose-by-need line above the cards */
+.choose-line{
+  text-align:center; max-width:780px; margin:0 auto; padding:6px 24px 30px;
+  color:var(--gray); font-size:clamp(18px,1.9vw,21px); line-height:1.6;
+}
+.choose-line b{color:var(--white); font-weight:600;}
+
+/* ── PRICING CARDS ──────────────────────────────────── */
+.cards{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+  align-items:stretch; padding:8px 0 24px;
+}
+.card{
+  position:relative; background:var(--card); border:1.5px solid var(--border);
+  border-radius:18px; padding:30px 26px 28px; display:flex; flex-direction:column;
+  color:var(--c2);
+  transition:transform .2s ease, border-color .2s ease;
+}
+.card:hover{transform:translateY(-4px); border-color:rgba(218,63,246,0.4);}
+.card::before{content:''; position:absolute; top:0; left:24px; right:24px; height:2px; background:var(--c2); opacity:0.55; border-radius:2px;}
+.tier-badge{
+  display:inline-block; font-family:'Outfit',sans-serif; font-size:10px; font-weight:800;
+  letter-spacing:2px; text-transform:uppercase; color:var(--c2); opacity:0.85;
+  padding:3px 10px; border-radius:5px; background:rgba(218,63,246,0.08); margin-bottom:14px;
+}
+.tier-name{font-family:'Outfit',sans-serif; font-size:28px; font-weight:900; color:var(--white); margin-bottom:5px;}
+.tier-eyebrow{font-size:18px; color:var(--c2); font-weight:600; margin-bottom:16px; line-height:1.4;}
+.tier-overview{font-size:20px; color:var(--gray); line-height:1.6; margin-bottom:24px;}
+.meta-list{list-style:none; margin:0; padding:20px 0 0; border-top:1px solid rgba(255,255,255,0.07); display:flex; flex-direction:column; gap:12px;}
+.meta-list li{display:flex; gap:11px; align-items:flex-start; font-size:20px; color:#cbd5e1; line-height:1.45;}
+.meta-list li svg{flex-shrink:0; margin-top:4px; color:var(--c2);}
+.meta-list li b{color:var(--white); font-weight:600;}
+
+/* ── COMPARISON TABLE ───────────────────────────────── */
+.section-head{text-align:center; padding:54px 0 26px;}
+.section-eyebrow{color:var(--c2); font-family:'Outfit',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px;}
+.section-title{font-family:'Outfit',sans-serif; font-size:clamp(24px,3vw,36px); font-weight:900; letter-spacing:-0.02em;}
+
+.table-shell{border:1px solid var(--border); border-radius:16px; overflow:hidden; background:var(--card);}
+table.compare{width:100%; border-collapse:collapse; font-size:20px;}
+table.compare thead th{
+  position:sticky; top:0; z-index:5; background:#0a0a0a;
+  padding:16px 18px; text-align:left; vertical-align:bottom;
+  border-bottom:1px solid var(--border);
+}
+thead th .th-name{font-family:'Outfit',sans-serif; font-size:20px; font-weight:900; color:var(--white);}
+thead th .th-sub{font-size:15px; color:var(--gray); margin-top:3px; font-weight:600;}
+thead th.feature-col{width:25%; min-width:180px;}
+thead th.col-core, thead th.col-mastery, thead th.col-excellence{width:25%;}
+
+tbody .group-row td{
+  background:#0a0a0a; font-family:'Outfit',sans-serif; font-size:13px; font-weight:800;
+  letter-spacing:2px; text-transform:uppercase; color:var(--c2);
+  padding:13px 18px; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+}
+tbody td{padding:15px 18px; vertical-align:top; border-bottom:1px solid #161616; line-height:1.5;}
+tbody tr:hover td{background:rgba(255,255,255,0.014);}
+td.feature{color:#e2e8f0; font-weight:600; font-family:'Outfit',sans-serif; font-size:19px;}
+td.val{color:#cbd5e1; font-size:20px;}
+td.val ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px;}
+td.val ul li{padding-left:16px; position:relative;}
+td.val ul li::before{content:''; position:absolute; left:0; top:10px; width:5px; height:5px; border-radius:50%; background:rgba(148,163,184,0.5);}
+.dash{color:var(--muted); font-size:20px;}
+.check{color:var(--c2); display:inline-flex; vertical-align:middle;}
+.hl{color:var(--white); font-weight:600;}
+
+/* ── SINGLE CTA ─────────────────────────────────────── */
+.cta-row{text-align:center; padding:40px 24px 8px;}
+.cta{
+  display:inline-block;
+  font-family:'Outfit',sans-serif; font-size:16px; font-weight:800; letter-spacing:1.6px; text-transform:uppercase;
+  padding:18px 48px; border-radius:50px; cursor:pointer; text-decoration:none;
+  color:#fff; background:linear-gradient(135deg,var(--c2),#c026d3); border:none;
+  box-shadow:0 0 30px rgba(218,63,246,0.42);
+  transition:filter .2s, transform .2s;
+}
+.cta:hover{filter:brightness(1.12); transform:translateY(-2px);}
+
+/* ── ADD-ONS / AFTERCARE ────────────────────────────── */
+.addons{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; padding:8px 0 12px;}
+.addon{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px 24px 26px;}
+.addon h3{font-family:'Outfit',sans-serif; font-size:19px; font-weight:800; color:var(--white); margin-bottom:6px;}
+.addon .ax-price{font-family:'Outfit',sans-serif; font-size:24px; font-weight:900; color:var(--c2); margin-bottom:12px;}
+.addon p{font-size:19px; color:var(--gray); line-height:1.6;}
+
+/* ── FOOTER ─────────────────────────────────────────── */
+.foot{text-align:center; padding:48px 24px 56px; color:var(--muted); font-size:18px; border-top:1px solid #141414; margin-top:48px;}
+.foot b{color:var(--c2); font-weight:600;}
+.vat{text-align:center; color:var(--muted); font-size:18px; padding:22px 0 0; font-style:italic;}
+
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width:900px){
+  .cards{grid-template-columns:1fr; max-width:460px; margin:0 auto;}
+  .addons{grid-template-columns:1fr;}
+  .table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  table.compare{min-width:760px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <div class="htag">Brand AI Operating System · For Solopreneurs</div>
+  <h1>Stop prompting.<br>Start <span>commanding.</span></h1>
+  <p>Grow your business with a system that sits across your whole business — it knows how you
+     operate, works on your drive with your tools, and runs your tasks on autopilot.</p>
+</header>
+
+<p class="choose-line">
+  No tier is "better" than another — each is built for a different stage.
+  <b>Choose the one that matches where your business is right now</b> and what you need next.
+</p>
+
+<main class="wrap">
+
+  <!-- ══ TIER CARDS ══ -->
+  <section class="cards">
+
+    <!-- CORE -->
+    <div class="card">
+      <span class="tier-badge">AIOS Core</span>
+      <div class="tier-name">Core</div>
+      <div class="tier-eyebrow">Your first AI task, live</div>
+      <p class="tier-overview">Your AI foundation set up and the top-impact workflow live — built together in a single session.</p>
+      <ul class="meta-list">
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><b>1 workflow</b> built live together</span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>1× 90-min build session</span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Single session · build live with me</span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Coaching on how to build more</span></li>
+      </ul>
+    </div>
+
+    <!-- MASTERY -->
+    <div class="card">
+      <span class="tier-badge">AIOS Mastery</span>
+      <div class="tier-name">Mastery</div>
+      <div class="tier-eyebrow">Your first AI employees, running your operations</div>
+      <p class="tier-overview">Your core AI operating system set up with 3 running high-impact workflows — built together, yours to run and grow.</p>
+      <ul class="meta-list">
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><b>3 custom workflows</b> or skills</span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>1× 60-min scoping + 3 build sessions</span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Learn to keep building independently</span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>DM support for one month</span></li>
+      </ul>
+    </div>
+
+    <!-- EXCELLENCE -->
+    <div class="card">
+      <span class="tier-badge">AIOS Excellence</span>
+      <div class="tier-name">Excellence</div>
+      <div class="tier-eyebrow">Your AI team on autopilot, across departments</div>
+      <p class="tier-overview">Your full AI operating system built over 3 months, running without you.</p>
+      <ul class="meta-list">
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span><b>Custom workflows</b> — 1 per session</span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>12 build sessions over 3 months</span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Automations, tool connections &amp; dashboards</span></li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>DM support · 3 months + 30 days after</span></li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ══ COMPARISON TABLE ══ -->
+  <div class="section-head" id="compare">
+    <div class="section-eyebrow">Full Comparison</div>
+    <h2 class="section-title">Everything in each tier</h2>
+  </div>
+
+  <div class="table-shell">
+  <div class="table-scroll">
+  <table class="compare">
+    <thead>
+      <tr>
+        <th class="feature-col"></th>
+        <th class="col-core"><div class="th-name">Core</div><div class="th-sub">Single session</div></th>
+        <th class="col-mastery"><div class="th-name">Mastery</div><div class="th-sub">1 month</div></th>
+        <th class="col-excellence"><div class="th-name">Excellence</div><div class="th-sub">3 months</div></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- POSITIONING -->
+      <tr class="group-row"><td colspan="4">Positioning</td></tr>
+      <tr>
+        <td class="feature">Best for</td>
+        <td class="val">Founders who want to explore AI and build their first top-priority workflow</td>
+        <td class="val">Founders who want a defined system with top workflows set up, learn how it works, and run it themselves</td>
+        <td class="val">Founders who want the full operating system — workflows, automation, and ongoing support over 3 months</td>
+      </tr>
+      <tr>
+        <td class="feature">Your role</td>
+        <td class="val">Build live with me in one session</td>
+        <td class="val">Build alongside me and learn</td>
+        <td class="val">Build alongside me with deeper guidance and continuous refinement</td>
+      </tr>
+      <tr>
+        <td class="feature">Duration</td>
+        <td class="val"><span class="hl">Single session</span></td>
+        <td class="val"><span class="hl">1 month</span></td>
+        <td class="val"><span class="hl">3 months</span></td>
+      </tr>
+
+      <!-- WHAT'S INCLUDED -->
+      <tr class="group-row"><td colspan="4">What's included</td></tr>
+      <tr>
+        <td class="feature">Audit</td>
+        <td class="val">Light scoping included in discovery</td>
+        <td class="val">Light scoping included in discovery</td>
+        <td class="val">Light scoping included in discovery. A separate audit can be added on.</td>
+      </tr>
+      <tr>
+        <td class="feature">Foundation</td>
+        <td class="val">Light system set up by Poulomi in advance</td>
+        <td class="val">Core system set up by Poulomi in one session. Includes ChatGPT import, if necessary.</td>
+        <td class="val">Customized system set up by Poulomi after discovery. Includes ChatGPT import, if necessary.</td>
+      </tr>
+      <tr>
+        <td class="feature">No. of sessions</td>
+        <td class="val"><ul><li>1× core system setup (done in advance)</li><li>1× 90-min build session</li></ul></td>
+        <td class="val"><ul><li>1× 60-min scoping + core setup</li><li>3× 60-min build sessions</li></ul></td>
+        <td class="val"><ul><li>1× 90-min scoping + core setup</li><li>4× 90-min build sessions/month (12 total)</li><li>Choose any 12 from the rows below</li></ul></td>
+      </tr>
+      <tr>
+        <td class="feature">Workflows / skills built</td>
+        <td class="val"><ul><li>1 workflow built live together</li><li>Coaching on how to build more</li></ul></td>
+        <td class="val"><ul><li>3 custom workflows or skills</li><li>3 sessions</li></ul></td>
+        <td class="val"><ul><li>Custom workflows or skills</li><li>Each workflow = 1 session</li></ul></td>
+      </tr>
+      <tr><td class="feature">Tool connections training</td><td class="val"><span class="dash">—</span></td><td class="val"><span class="dash">—</span></td><td class="val">1 session</td></tr>
+      <tr><td class="feature">Working on multiple projects</td><td class="val"><span class="dash">—</span></td><td class="val"><span class="dash">—</span></td><td class="val">1 session</td></tr>
+      <tr><td class="feature">Automations</td><td class="val"><span class="dash">—</span></td><td class="val"><span class="dash">—</span></td><td class="val">1 session</td></tr>
+      <tr><td class="feature">Context file updates</td><td class="val"><span class="dash">—</span></td><td class="val"><span class="dash">—</span></td><td class="val">1 session</td></tr>
+      <tr><td class="feature">Coding with AI</td><td class="val"><span class="dash">—</span></td><td class="val"><span class="dash">—</span></td><td class="val">1 session</td></tr>
+      <tr><td class="feature">Team training</td><td class="val"><span class="dash">—</span></td><td class="val"><span class="dash">—</span></td><td class="val">1 session</td></tr>
+      <tr><td class="feature">Strategy &amp; brainstorming</td><td class="val"><span class="dash">—</span></td><td class="val"><span class="dash">—</span></td><td class="val">1 session</td></tr>
+      <tr><td class="feature">Live artifacts &amp; dashboards</td><td class="val"><span class="dash">—</span></td><td class="val"><span class="dash">—</span></td><td class="val">1 session</td></tr>
+      <tr><td class="feature">Maintenance &amp; refinements</td><td class="val"><span class="dash">—</span></td><td class="val"><span class="dash">—</span></td><td class="val">1 session</td></tr>
+      <tr>
+        <td class="feature">Workflow library + templates + coaching on customizing them</td>
+        <td class="val"><span class="check"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span></td>
+        <td class="val"><span class="check"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span></td>
+        <td class="val"><span class="check"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span></td>
+      </tr>
+      <tr>
+        <td class="feature">Coaching / teaching</td>
+        <td class="val">Quick walkthrough on how to build more skills</td>
+        <td class="val">Taught across 3 workflows so you keep building independently</td>
+        <td class="val">Coaching on how to run, maintain &amp; update your system independently — and how to do deep builds</td>
+      </tr>
+      <tr>
+        <td class="feature">Support</td>
+        <td class="val"><span class="dash">—</span></td>
+        <td class="val">DM support for one month</td>
+        <td class="val">DM support throughout 3 months + 30 days after</td>
+      </tr>
+
+      <!-- AFTER THE PROGRAM -->
+      <tr class="group-row"><td colspan="4">After the program</td></tr>
+      <tr>
+        <td class="feature">Upgrade path</td>
+        <td class="val">Upgrade to Mastery at the add-on rate</td>
+        <td class="val">Upgrade to Excellence (Months 2–3) at the add-on rate</td>
+        <td class="val">Mastery clients can add Excellence months 2–3 at the "add-on later" rate</td>
+      </tr>
+      <tr>
+        <td class="feature">Continuation options</td>
+        <td class="val"><ul><li>Maintenance retainer: €297/mo</li><li>Custom builds scoped separately</li></ul></td>
+        <td class="val"><ul><li>Maintenance retainer: €297/mo</li><li>Custom builds scoped separately</li></ul></td>
+        <td class="val"><ul><li>Maintenance retainer: €297/mo</li><li>Custom builds scoped separately</li></ul></td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
+  </div>
+
+  <!-- ══ SINGLE CTA ══ -->
+  <div class="cta-row">
+    <a class="cta" href="#">Book a Fit Call</a>
+  </div>
+
+  <!-- ══ ADD-ONS / AFTERCARE ══ -->
+  <div class="section-head">
+    <div class="section-eyebrow">Add-ons &amp; Aftercare</div>
+    <h2 class="section-title">Extend the system</h2>
+  </div>
+
+  <section class="addons">
+    <div class="addon">
+      <h3>Detailed Audit + Roadmap</h3>
+      <div class="ax-price">€497+</div>
+      <p>90-min session + written roadmap. For buyers who want a strategic deep-dive before committing to a build tier. 50% credited back if you proceed with a Mastery / Excellence package.</p>
+    </div>
+    <div class="addon">
+      <h3>Maintenance Retainer</h3>
+      <div class="ax-price">€297/mo</div>
+      <p>For AIOS alumni who are done with active building and just want the system maintained — brand context refreshes, fixes, system tuning, and a monthly check-in call. No new builds or sessions.</p>
+    </div>
+    <div class="addon">
+      <h3>Custom Builds</h3>
+      <div class="ax-price">Scoped</div>
+      <p>Each workflow scoped individually based on complexity + business ROI. Baseline: €497 quick win · €997 multi-step workflow · €1,497 dashboard. Complex builds priced by scope.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <b>Brand AIOS</b> · Packages for Solopreneurs &nbsp;·&nbsp; Stop prompting. Start commanding.
+</footer>
+
+</body>
+</html>
